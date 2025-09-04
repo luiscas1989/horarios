@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Horarios - Versión Avanzada</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>Sistema de Gestión de Horarios - Versión Avanzada</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Navegación por Tabs -->
+        <nav class="tabs-nav">
+            <button class="tab-btn active" data-tab="cuadrante">Cuadrante Semanal</button>
+            <button class="tab-btn" data-tab="calendario">Calendario Mensual</button>
+            <button class="tab-btn" data-tab="gestion">Gestión Personal</button>
+        </nav>
+
+        <!-- Tab Cuadrante Semanal -->
+        <div class="tab-content active" id="cuadrante">
+            <!-- Panel de Control -->
+            <section class="panel-control">
+                <div class="panel-vacaciones">
+                    <h2>Control de Vacaciones</h2>
+                    <div class="empleados-vacaciones" id="empleadosVacaciones">
+                        <!-- Datos de vacaciones se cargan dinámicamente -->
+                    </div>
+                </div>
+                
+                <div class="panel-acciones">
+                    <button class="btn btn--primary" id="btnAgregarTemporal">
+                        <span>➕</span> Añadir Trabajador Temporal
+                    </button>
+                    <button class="btn btn--secondary" id="btnGuardarCambios">
+                        <span>💾</span> Guardar Cambios
+                    </button>
+                    <button class="btn btn--outline" id="btnRestablecerSemana">
+                        <span>🔄</span> Restablecer Semana
+                    </button>
+                    <button class="btn btn--outline" id="btnImprimirSemanal">
+                        <span>🖨️</span> Imprimir Cuadrante
+                    </button>
+                </div>
+            </section>
+
+            <!-- Cuadrante Semanal -->
+            <section class="cuadrante-section">
+                <h2>Cuadrante Semanal</h2>
+                <div class="cuadrante-container">
+                    <table class="cuadrante-table" id="cuadranteTable">
+                        <thead>
+                            <tr>
+                                <th>Empleado</th>
+                                <th>Lunes</th>
+                                <th>Martes</th>
+                                <th>Miércoles</th>
+                                <th>Jueves</th>
+                                <th>Viernes</th>
+                                <th>Sábado</th>
+                                <th>Domingo</th>
+                                <th class="no-print">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuadranteBody">
+                            <!-- Filas se generan dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Leyenda de Estados -->
+            <section class="leyenda-section">
+                <h3>Leyenda de Estados</h3>
+                <div class="leyenda">
+                    <div class="leyenda-item trabajando">
+                        <span class="leyenda-color"></span>
+                        <span>Trabajando</span>
+                    </div>
+                    <div class="leyenda-item vacaciones">
+                        <span class="leyenda-color"></span>
+                        <span>Vacaciones</span>
+                    </div>
+                    <div class="leyenda-item baja">
+                        <span class="leyenda-color"></span>
+                        <span>Baja</span>
+                    </div>
+                    <div class="leyenda-item libre">
+                        <span class="leyenda-color"></span>
+                        <span>Libre</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resumen de Horas -->
+            <section class="resumen-section">
+                <h2>Resumen de Horas</h2>
+                <div class="resumen-container" id="resumenContainer">
+                    <!-- Resumen se genera dinámicamente -->
+                </div>
+            </section>
+        </div>
+
+        <!-- Tab Calendario Mensual -->
+        <div class="tab-content" id="calendario">
+            <section class="calendario-section">
+                <div class="calendario-header">
+                    <div class="calendario-navegacion">
+                        <button class="btn btn--outline" id="btnMesAnterior">‹ Anterior</button>
+                        <h2 id="mesActualTitulo">Septiembre 2025</h2>
+                        <button class="btn btn--outline" id="btnMesSiguiente">Siguiente ›</button>
+                    </div>
+                    <div class="calendario-acciones">
+                        <button class="btn btn--outline" id="btnImprimirCalendario">
+                            <span>🖨️</span> Imprimir Calendario
+                        </button>
+                    </div>
+                </div>
+
+                <div class="calendario-container">
+                    <div class="calendario-grid" id="calendarioGrid">
+                        <!-- Calendario se genera dinámicamente -->
+                    </div>
+                </div>
+
+                <div class="calendario-leyenda">
+                    <h3>Leyenda de Empleados</h3>
+                    <div class="empleados-leyenda" id="empleadosLeyenda">
+                        <!-- Leyenda de empleados se genera dinámicamente -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Tab Gestión Personal -->
+        <div class="tab-content" id="gestion">
+            <section class="gestion-section">
+                <h2>Gestión de Personal</h2>
+                
+                <div class="gestion-grid">
+                    <div class="empleados-fijos">
+                        <h3>Empleados Fijos</h3>
+                        <div class="empleados-lista" id="empleadosFijos">
+                            <!-- Lista de empleados fijos -->
+                        </div>
+                    </div>
+
+                    <div class="empleados-temporales">
+                        <h3>Empleados Temporales</h3>
+                        <div class="empleados-lista" id="empleadosTemporales">
+                            <!-- Lista de empleados temporales -->
+                        </div>
+                        <button class="btn btn--primary" id="btnAgregarTemporalGestion">
+                            <span>➕</span> Añadir Trabajador Temporal
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal para Agregar Trabajador Temporal -->
+    <div class="modal hidden" id="modalTemporal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Añadir Trabajador Temporal</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="formTemporal">
+                    <div class="form-group">
+                        <label class="form-label" for="nombreTemporal">Nombre del Trabajador:</label>
+                        <input type="text" class="form-control" id="nombreTemporal" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="fechaInicio">Fecha de Inicio:</label>
+                        <input type="date" class="form-control" id="fechaInicio" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="fechaFin">Fecha de Fin:</label>
+                        <input type="date" class="form-control" id="fechaFin" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="tipoTemporal">Tipo:</label>
+                        <select class="form-control" id="tipoTemporal">
+                            <option value="temporal">Temporal</option>
+                            <option value="sustituto">Sustituto</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="sustitutoGroup" style="display: none;">
+                        <label class="form-label" for="sustitutoDe">Sustituto de:</label>
+                        <select class="form-control" id="sustitutoDe">
+                            <!-- Opciones se cargan dinámicamente -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Horarios Semanales:</label>
+                        <div class="horarios-grid">
+                            <div class="horario-dia">
+                                <label>Lunes:</label>
+                                <input type="text" class="form-control horario-input" data-dia="lunes" placeholder="ej: 18:00-23:30">
+                            </div>
+                            <div class="horario-dia">
+                                <label>Martes:</label>
+                                <input type="text" class="form-control horario-input" data-dia="martes" placeholder="ej: libre">
+                            </div>
+                            <div class="horario-dia">
+                                <label>Miércoles:</label>
+                                <input type="text" class="form-control horario-input" data-dia="miercoles" placeholder="ej: 12:00-16:00">
+                            </div>
+                            <div class="horario-dia">
+                                <label>Jueves:</label>
+                                <input type="text" class="form-control horario-input" data-dia="jueves" placeholder="ej: libre">
+                            </div>
+                            <div class="horario-dia">
+                                <label>Viernes:</label>
+                                <input type="text" class="form-control horario-input" data-dia="viernes" placeholder="ej: 12:00-24h">
+                            </div>
+                            <div class="horario-dia">
+                                <label>Sábado:</label>
+                                <input type="text" class="form-control horario-input" data-dia="sabado" placeholder="ej: libre">
+                            </div>
+                            <div class="horario-dia">
+                                <label>Domingo:</label>
+                                <input type="text" class="form-control horario-input" data-dia="domingo" placeholder="ej: 19:00-23:30">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn--outline" id="cancelarTemporal">Cancelar</button>
+                        <button type="submit" class="btn btn--primary">Añadir Trabajador</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div class="modal hidden" id="modalConfirmacion">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmar Eliminación</h3>
+                <button class="modal-close" id="closeModalConfirmacion">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="mensajeConfirmacion">¿Está seguro de eliminar este empleado?</p>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn--outline" id="cancelarEliminacion">Cancelar</button>
+                    <button type="button" class="btn" id="confirmarEliminacion" style="background: var(--color-error); color: white;">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Menú Contextual -->
+    <div class="context-menu hidden" id="contextMenu">
+        <div class="context-menu-content">
+            <button class="context-menu-item" data-estado="trabajando">
+                <span class="estado-indicator trabajando"></span>
+                Trabajando
+            </button>
+            <button class="context-menu-item" data-estado="vacaciones">
+                <span class="estado-indicator vacaciones"></span>
+                Vacaciones
+            </button>
+            <button class="context-menu-item" data-estado="baja">
+                <span class="estado-indicator baja"></span>
+                Baja
+            </button>
+            <button class="context-menu-item" data-estado="libre">
+                <span class="estado-indicator libre"></span>
+                Libre
+            </button>
+        </div>
+    </div>
+
+    <!-- Alertas -->
+    <div class="alert hidden" id="alertContainer">
+        <div class="alert-content">
+            <span class="alert-message" id="alertMessage"></span>
+            <button class="alert-close" id="alertClose">&times;</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
